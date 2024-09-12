@@ -8,6 +8,11 @@
 }
 
 @font-face {
+  font-family: higurashi;
+  src: url(/sazanami-gothic.ttf);
+}
+
+@font-face {
     font-family: 'MontserratBold';
     font-style: normal;
     font-weight: 700;
