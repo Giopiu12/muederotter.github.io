@@ -10,12 +10,16 @@
   </style>
 </head>
 <body>
-  <div id="container" style="color: rgb(0, 0, 0); text-align: left;">
+  <div id="container" style="color: rgb(0, 0, 0); text-align: left; user-select: none">
     <p id="label" style="font-size: 33px; margin-bottom: -20px; margin-left: 10px; margin-right: 10px; font-family: sazanami-gothic;">Focus</p>
     <p id="timer" style="font-size: 100px; margin-top: 0px; font-family: sazanami-gothic;"></p>
   </div>
 
   <script>
+    const READY_LABEL = 'Get ready'
+    const FOCUS_LABEL = 'Focus'
+    const BREAK_LABEL = 'Break'
+
     let urlParams = new URLSearchParams(window.location.search);
     let focus = parseInt(urlParams.get('focusSeconds'));
     let breakTime = parseInt(urlParams.get('breakSeconds'));
@@ -38,6 +42,8 @@
     let timeLeft = focus;
     let intervalId;
 
+    let paused = false;
+
     function loadTimer() {
       let minutes = Math.floor(focus / 60);
       let seconds = focus % 60;
@@ -54,37 +60,58 @@
 
     function updateTimer() {
       writeTimer()
+
       timeLeft--;
 
       if (timeLeft < 0) {
         clearInterval(intervalId);
-        if (label.innerHTML === 'Get ready') {
-          label.innerHTML = 'Focus';
+
+        if (label.innerHTML === READY_LABEL) {
+          label.innerHTML = FOCUS_LABEL;
+
           timeLeft = focus;
+
           intervalId = setInterval(updateTimer, 1000);
-        } else if (label.innerHTML === 'Focus') {
+        } else if (label.innerHTML === FOCUS_LABEL) {
           reps--;
+
           if (reps > 0) {
-            label.innerHTML = 'Break';
+            label.innerHTML = BREAK_LABEL;
+
             timeLeft = breakTime;
+
             intervalId = setInterval(updateTimer, 1000);
           } else {
             label.innerHTML = 'Well';
             timer.innerHTML = 'DONE!';
           }
-        } else if (label.innerHTML === 'Break') {
-          label.innerHTML = 'Focus';
+        } else if (label.innerHTML === BREAK_LABEL) {
+          label.innerHTML = FOCUS_LABEL;
+
           timeLeft = focus;
+
           intervalId = setInterval(updateTimer, 1000);
         }
       }
     }
 
     timer.addEventListener('click', function() {
+      if (intervalId) {
+        clearInterval(intervalId)
+        intervalId = undefined
+
+        paused = true;
+        return
+      }
+      
       if (!intervalId) {
-        label.innerHTML = 'Get ready';
-        timeLeft = timeToGetReady;
-        updateTimer()
+        if (!paused) {
+          label.innerHTML = READY_LABEL;
+          timeLeft = timeToGetReady;
+          updateTimer()
+        }
+
+        paused = false;
         intervalId = setInterval(updateTimer, 1000);
       }
     });
