@@ -44,7 +44,7 @@
 }
 
 h1 {
-    font-family: "Josefin Sans semi bold";
+    font-family: "sazanami-gothic";
     color: #F4989C;
     display: flex;
     justify-content: center;
@@ -52,7 +52,7 @@ h1 {
 }
 
 body {
-    background-color: #D6F6DD;
+    background-color: #000000;
 }
 
 form {
@@ -68,7 +68,7 @@ form {
 }
 
 form * {
-    font-family: "Josefin Sans regular";
+    font-family: "sazanami-gothic";
 }
 
 .previewcontainer {
@@ -92,7 +92,7 @@ form * {
 }
 
 #previewtext{
-    font-family: "Josefin Sans semi bold";
+    font-family: "sazanami-gothic";
     margin-bottom: 5px;
 
 }
