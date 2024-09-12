@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="timer-style.css">
+<!-- saved from url=(0149)https://muederotter.github.io/timer.html?focus=30&break=3&reps=4&color=%23000000&timerFont=sazanami-gothic&sessionFont=sazanami-gothic&alignment=left -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="./timer_files/timer-style.css">
   <style>
     #timer {
       font-size: 100px;
@@ -10,9 +10,9 @@
   </style>
 </head>
 <body>
-  <div id='container'>
-    <p id='label' style='font-size:33px; margin-bottom:-20px; margin-left: 10px; margin-right: 10px;'>Focus</p>
-    <p id='timer' style='font-size:100px; margin-top:0'>25:00</p>
+  <div id="container" style="color: rgb(0, 0, 0); text-align: left;">
+    <p id="label" style="font-size: 33px; margin-bottom: -20px; margin-left: 10px; margin-right: 10px; font-family: sazanami-gothic;">Focus</p>
+    <p id="timer" style="font-size: 100px; margin-top: 0px; font-family: sazanami-gothic;" onload="loadTimer">25:00</p>
   </div>
 
   <script>
@@ -36,6 +36,14 @@
 
     let timeLeft = focus;
     let intervalId;
+
+    function loadTimer() {
+      let minutes = Math.floor(focus / 60);
+      let seconds = focus % 60;
+      timer.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    loadTimer()
 
     function updateTimer() {
       let minutes = Math.floor(timeLeft / 60);
@@ -74,5 +82,6 @@
       }
     });
   </script>
-</body>
-</html>
+
+
+</body></html>
