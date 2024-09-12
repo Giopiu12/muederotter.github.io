@@ -65,7 +65,7 @@ function updateLinkAndPreview() {
     let timerFont = document.getElementById('timerFont').value;
     let sessionFont = document.getElementById('sessionFont').value;
     let alignment = document.getElementById('alignment').value;
-    let link = `https://giorcal2d.github.io/timer.html?focusSeconds=${focusSeconds}&breakSeconds=${breakSeconds}&readySeconds=${readySeconds}&reps=${reps}&color=${encodeURIComponent(color)}&timerFont=${encodeURIComponent(timerFont)}&sessionFont=${encodeURIComponent(sessionFont)}&alignment=${alignment}`;
+    let link = `https://giorcal2d.github.io/timer/timer.html?focusSeconds=${focusSeconds}&breakSeconds=${breakSeconds}&readySeconds=${readySeconds}&reps=${reps}&color=${encodeURIComponent(color)}&timerFont=${encodeURIComponent(timerFont)}&sessionFont=${encodeURIComponent(sessionFont)}&alignment=${alignment}`;
     document.getElementById('link').href = link;
     document.getElementById('link').innerHTML = link;
 
