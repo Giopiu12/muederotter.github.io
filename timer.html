@@ -12,19 +12,20 @@
 <body>
   <div id="container" style="color: rgb(0, 0, 0); text-align: left;">
     <p id="label" style="font-size: 33px; margin-bottom: -20px; margin-left: 10px; margin-right: 10px; font-family: sazanami-gothic;">Focus</p>
-    <p id="timer" style="font-size: 100px; margin-top: 0px; font-family: sazanami-gothic;" onload="loadTimer">25:00</p>
+    <p id="timer" style="font-size: 100px; margin-top: 0px; font-family: sazanami-gothic;"></p>
   </div>
 
   <script>
     let urlParams = new URLSearchParams(window.location.search);
-    let focus = parseInt(urlParams.get('focus')) * 60;
-    let breakTime = parseInt(urlParams.get('break')) * 60;
+    let focus = parseInt(urlParams.get('focusSeconds'));
+    let breakTime = parseInt(urlParams.get('breakSeconds'));
+    let timeToGetReady = urlParams.get('readySeconds');
     let reps = parseInt(urlParams.get('reps'));
     let color = decodeURIComponent(urlParams.get('color'));
     let timerFont = urlParams.get('timerFont');
     let sessionFont = urlParams.get('sessionFont');
     let alignment = urlParams.get('alignment');
-
+    
     let container = document.getElementById('container');
     container.style.color = color;
     container.style.textAlign = alignment;
@@ -45,11 +46,16 @@
 
     loadTimer()
 
-    function updateTimer() {
-      let minutes = Math.floor(timeLeft / 60);
-      let seconds = timeLeft % 60;
+    function writeTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
       timer.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function updateTimer() {
+      writeTimer()
       timeLeft--;
+
       if (timeLeft < 0) {
         clearInterval(intervalId);
         if (label.innerHTML === 'Get ready') {
@@ -77,11 +83,11 @@
     timer.addEventListener('click', function() {
       if (!intervalId) {
         label.innerHTML = 'Get ready';
-        timeLeft = 10;
+        timeLeft = timeToGetReady;
+        updateTimer()
         intervalId = setInterval(updateTimer, 1000);
       }
     });
   </script>
-
 
 </body></html>
